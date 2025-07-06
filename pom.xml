@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.damian</groupId>
-    <artifactId>Debt.to</artifactId>
+    <artifactId>paynext</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>debt.to</name>
+    <name>paynext</name>
     <description>App to calculate debts between friends</description>
     <url/>
     <licenses>
