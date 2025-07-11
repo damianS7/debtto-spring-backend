@@ -40,7 +40,6 @@ public class FriendServiceTest {
     private FriendRepository friendRepository;
 
     @Mock
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
     private BCryptPasswordEncoder passwordEncoder;
 
     @InjectMocks

@@ -2,6 +2,7 @@ package com.damian.paynext.friend;
 
 import com.damian.paynext.auth.http.AuthenticationRequest;
 import com.damian.paynext.auth.http.AuthenticationResponse;
+import com.damian.paynext.friend.dto.FriendDTO;
 import com.damian.paynext.friend.http.FriendCreateRequest;
 import com.damian.paynext.customer.Customer;
 import com.damian.paynext.customer.CustomerGender;

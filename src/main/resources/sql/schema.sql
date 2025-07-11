@@ -115,8 +115,7 @@ CREATE TABLE public.group_members (
     CONSTRAINT member_customer_id_fkey FOREIGN KEY (member_customer_id) REFERENCES public.customers(id) ON DELETE CASCADE
 );
 
-
-CREATE TABLE public.group_spendings (
+CREATE TABLE public.group_expenses (
 	id int4 GENERATED ALWAYS AS IDENTITY NOT NULL,
 	group_id int4 NOT NULL,
 	payer_customer_id int4 NULL,
@@ -124,19 +123,19 @@ CREATE TABLE public.group_spendings (
 	amount numeric(15, 2) NOT NULL,
 	created_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,
 	updated_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,
-	CONSTRAINT customers_spendings_pkey PRIMARY KEY (id),
+	CONSTRAINT customers_expenses_pkey PRIMARY KEY (id),
 	CONSTRAINT group_id_fkey FOREIGN KEY (group_id) REFERENCES public.groups(id) ON DELETE CASCADE,
 	CONSTRAINT customer_payer_customer_id_fkey FOREIGN KEY (payer_customer_id) REFERENCES public.customers(id) ON DELETE CASCADE
 );
 
-CREATE TABLE public.group_payments (
+CREATE TABLE public.group_repayments (
 	id int4 GENERATED ALWAYS AS IDENTITY NOT NULL,
 	group_id int4 NOT NULL,
 	payer_customer_id int4 NOT NULL,
 	amount numeric(15, 2) NOT NULL,
 	created_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,
 	updated_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,
-	CONSTRAINT customers_payments_pkey PRIMARY KEY (id),
+	CONSTRAINT customers_repayments_pkey PRIMARY KEY (id),
 	CONSTRAINT group_id_fkey FOREIGN KEY (group_id) REFERENCES public.groups(id) ON DELETE CASCADE,
 	CONSTRAINT customer_payer_customer_id_fkey FOREIGN KEY (payer_customer_id) REFERENCES public.customers(id) ON DELETE CASCADE
 );

@@ -16,14 +16,11 @@ import java.util.Set;
 
 @Service
 public class GroupService {
-    private final CustomerRepository customerRepository;
     private final GroupRepository groupRepository;
 
     public GroupService(
-            CustomerRepository customerRepository,
             GroupRepository groupRepository
     ) {
-        this.customerRepository = customerRepository;
         this.groupRepository = groupRepository;
     }
 

@@ -38,24 +38,23 @@ public class GroupMemberService {
     public GroupMember addGroupMember(Long groupId, GroupMemberUpdateRequest request) {
         Customer loggedCustomer = AuthHelper.getLoggedCustomer();
 
-        Customer customer = customerRepository.findById(request.memberId()).orElseThrow(
-                () -> new CustomerNotFoundException(Exceptions.CUSTOMER.NOT_FOUND)
-        );
-
         Group group = groupRepository.findById(groupId).orElseThrow(
                 () -> new GroupNotFoundException(Exceptions.GROUP.NOT_FOUND)
         );
 
-        GroupMember groupMember = new GroupMember(
-                customer,
-                group
+        // check authorization
+        if (!loggedCustomer.getId().equals(group.getOwner().getId())) {
+            throw new GroupAuthorizationException(Exceptions.GROUP.ACCESS_FORBIDDEN);
+        }
+
+        Customer customerToAdd = customerRepository.findById(request.memberId()).orElseThrow(
+                () -> new CustomerNotFoundException(Exceptions.CUSTOMER.NOT_FOUND)
         );
 
-        // send notification to the group
-//        chatNotificationService.notifyGroup(
-//                group,
-//                loggedCustomer.getFullName() + " added " + customer.getFullName() + " to the group!"
-//        );
+        GroupMember groupMember = new GroupMember(
+                customerToAdd,
+                group
+        );
         
         return groupMemberRepository.save(groupMember);
     }
@@ -77,11 +76,5 @@ public class GroupMemberService {
         }
 
         groupMemberRepository.deleteById(groupMemberId);
-
-        // send notification to the group
-//        chatNotificationService.notifyGroup(
-//                group,
-//                loggedCustomer.getFullName() + " removed " + groupMember.getMember().getFullName() + " from the group!"
-//        );
     }
 }

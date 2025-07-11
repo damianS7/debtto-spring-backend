@@ -1,4 +1,4 @@
-package com.damian.paynext.friend;
+package com.damian.paynext.friend.dto;
 
 public record FriendDTO(
         Long id,

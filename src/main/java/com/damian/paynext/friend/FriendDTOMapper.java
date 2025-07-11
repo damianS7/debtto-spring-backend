@@ -1,5 +1,7 @@
 package com.damian.paynext.friend;
 
+import com.damian.paynext.friend.dto.FriendDTO;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 

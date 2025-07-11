@@ -1,5 +1,6 @@
 package com.damian.paynext.friend;
 
+import com.damian.paynext.friend.dto.FriendDTO;
 import com.damian.paynext.friend.http.FriendCreateRequest;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -21,7 +22,7 @@ public class FriendController {
         this.friendService = friendService;
     }
 
-    // endpoint to receive friends from logged customer
+    // endpoint to fetch all friends from logged customer
     @GetMapping("/friends")
     public ResponseEntity<?> getFriends() {
         Set<Friend> friends = friendService.getFriends();
@@ -46,7 +47,7 @@ public class FriendController {
                 .body(friendDTO);
     }
 
-    // endpoint to delete a friend from the logged customer friend list
+    // endpoint to delete a friend from the logged customer friend list.
     @DeleteMapping("/friends/{id}")
     public ResponseEntity<?> deleteFriend(
             @PathVariable @NotNull @Positive

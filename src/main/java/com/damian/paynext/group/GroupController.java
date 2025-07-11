@@ -34,7 +34,7 @@ public class GroupController {
                 .body(groupsDTO);
     }
 
-    // endpoint to create groups
+    // endpoint to get a group
     @GetMapping("/groups/{id}")
     public ResponseEntity<?> getGroup(
             @PathVariable @NotNull @Positive
@@ -62,7 +62,7 @@ public class GroupController {
                 .body(groupDTO);
     }
 
-    // endpoint to update groups
+    // endpoint to update a group
     @PutMapping("/groups/{id}")
     public ResponseEntity<?> updateGroup(
             @PathVariable @NotNull @Positive
@@ -78,7 +78,7 @@ public class GroupController {
                 .body(groupDTO);
     }
 
-    // endpoint to delete groups
+    // endpoint to delete a group
     @DeleteMapping("/groups/{id}")
     public ResponseEntity<?> deleteGroup(
             @PathVariable @NotNull @Positive
