@@ -1,15 +1,14 @@
-package com.damian.paynext.group.expenses;
+package com.damian.paynext.group.members;
 
 import com.damian.paynext.customer.Customer;
 import com.damian.paynext.group.group.Group;
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
-@Table(name = "group_expenses")
-public class GroupExpense {
+@Table(name = "group_members")
+public class GroupMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,14 +18,8 @@ public class GroupExpense {
     private Group group;
 
     @ManyToOne
-    @JoinColumn(name = "payer_customer_id")
-    private Customer payer;
-
-    @Column(precision = 15, scale = 2)
-    private BigDecimal amount;
-
-    @Column
-    private String description;
+    @JoinColumn(name = "member_customer_id")
+    private Customer member;
 
     @Column
     private Instant createdAt;
@@ -34,21 +27,24 @@ public class GroupExpense {
     @Column
     private Instant updatedAt;
 
-    public GroupExpense() {
+    @Enumerated(EnumType.STRING)
+    private GroupMemberRole memberRole;
+
+    public GroupMember() {
+        this.memberRole = GroupMemberRole.MEMBER;
         this.createdAt = Instant.now();
         this.updatedAt = Instant.now();
     }
 
-    public GroupExpense(Group group, Customer payer) {
-        this();
-        this.payer = payer;
-        this.group = group;
+    public GroupMember(Customer member, Group group) {
+        this(member, group, GroupMemberRole.MEMBER);
     }
 
-    public GroupExpense(Group group, Customer payer, BigDecimal amount, String description) {
-        this(group, payer);
-        this.amount = amount;
-        this.description = description;
+    public GroupMember(Customer member, Group group, GroupMemberRole memberRole) {
+        this();
+        this.member = member;
+        this.group = group;
+        this.memberRole = memberRole;
     }
 
     public Long getId() {
@@ -80,19 +76,19 @@ public class GroupExpense {
         return "GroupMember {" +
                "id=" + id +
                ", Group=" + group.toString() +
-               ", Payer=" + payer.toString() +
+               ", Customer=" + member.toString() +
                ", createdAt=" + createdAt +
                ", updatedAt=" + updatedAt +
                "}";
 
     }
 
-    public Customer getPayer() {
-        return payer;
+    public Customer getMember() {
+        return member;
     }
 
-    public void setPayer(Customer payer) {
-        this.payer = payer;
+    public void setMember(Customer member) {
+        this.member = member;
     }
 
     public Group getGroup() {
@@ -103,19 +99,11 @@ public class GroupExpense {
         this.group = group;
     }
 
-    public String getDescription() {
-        return description;
+    public GroupMemberRole getMemberRole() {
+        return memberRole;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setMemberRole(GroupMemberRole memberRole) {
+        this.memberRole = memberRole;
     }
 }

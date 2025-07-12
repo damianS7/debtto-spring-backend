@@ -2,7 +2,7 @@ package com.damian.paynext.customer;
 
 import com.damian.paynext.auth.Auth;
 import com.damian.paynext.customer.profile.Profile;
-import com.damian.paynext.group.member.GroupMember;
+import com.damian.paynext.group.members.GroupMember;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -77,10 +77,6 @@ public class Customer implements CustomerDetails {
         this.id = id;
     }
 
-    public void setPassword(String password) {
-        this.auth.setPassword(password);
-    }
-
     public CustomerRole getRole() {
         return role;
     }
@@ -102,6 +98,10 @@ public class Customer implements CustomerDetails {
     @Override
     public String getPassword() {
         return auth.getPassword();
+    }
+
+    public void setPassword(String password) {
+        this.auth.setPassword(password);
     }
 
     @Override
@@ -140,16 +140,16 @@ public class Customer implements CustomerDetails {
         return profile;
     }
 
-    public String getFullName() {
-        return getProfile().getFirstName() + " " + getProfile().getLastName();
-    }
-
     public void setProfile(Profile profile) {
         if (profile.getOwner() != this) {
             profile.setCustomer(this);
         }
 
         this.profile = profile;
+    }
+
+    public String getFullName() {
+        return getProfile().getFirstName() + " " + getProfile().getLastName();
     }
 
     public Instant getUpdatedAt() {

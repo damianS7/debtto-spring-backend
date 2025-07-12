@@ -3,12 +3,12 @@ package com.damian.paynext.group.expenses;
 import com.damian.paynext.common.exception.Exceptions;
 import com.damian.paynext.common.utils.AuthHelper;
 import com.damian.paynext.customer.Customer;
-import com.damian.paynext.group.Group;
-import com.damian.paynext.group.GroupRepository;
-import com.damian.paynext.group.exception.GroupAuthorizationException;
-import com.damian.paynext.group.exception.GroupNotFoundException;
 import com.damian.paynext.group.expenses.exception.GroupExpenseNotFoundException;
 import com.damian.paynext.group.expenses.http.GroupExpenseCreateRequest;
+import com.damian.paynext.group.group.Group;
+import com.damian.paynext.group.group.GroupRepository;
+import com.damian.paynext.group.group.exception.GroupAuthorizationException;
+import com.damian.paynext.group.group.exception.GroupNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -67,7 +67,7 @@ public class GroupExpenseService {
                 () -> new GroupNotFoundException(Exceptions.GROUP.NOT_FOUND)
         );
 
-        // check customer is the owner of the group to delete the expense.
+        // check customer is the owner of the group to delete the expenses.
         if (!loggedCustomer.getId().equals(group.getOwner().getId())) {
             throw new GroupAuthorizationException(Exceptions.GROUP.NOT_OWNER);
         }
