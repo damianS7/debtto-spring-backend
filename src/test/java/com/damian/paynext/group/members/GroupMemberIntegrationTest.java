@@ -27,8 +27,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @SpringBootTest
@@ -167,5 +166,26 @@ public class GroupMemberIntegrationTest {
         assertThat(groupMemberDTO).isNotNull();
     }
 
-    // TODO: should delete group members
+    @Test
+    @DisplayName("Should delete group members")
+    void shouldDeleteGroupMember() throws Exception {
+        // given
+        loginWithCustomer(customer);
+
+        Group group = new Group("gaming", "gaming group");
+        group.setOwner(customer);
+        groupRepository.save(group);
+
+        GroupMember groupMember = new GroupMember(customer, group);
+        groupMemberRepository.save(groupMember);
+
+        // when
+        mockMvc.perform(
+                       delete("/api/v1/groups/members/{id}", groupMember.getId())
+                               .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                               .contentType(MediaType.APPLICATION_JSON))
+               .andDo(print())
+               .andExpect(MockMvcResultMatchers.status().is(204))
+               .andReturn();
+    }
 }
