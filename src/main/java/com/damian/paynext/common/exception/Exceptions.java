@@ -20,9 +20,15 @@ public class Exceptions {
         public static final String NOT_FOUND = "Customer not found.";
     }
 
+    public static class EXPENSES {
+        public static final String NOT_FOUND = "Expense not found.";
+    }
+
     public static class GROUP {
         public static final String NOT_FOUND = "Group not found.";
+        public static final String NOT_OWNER = "You are not the owner of this group.";
         public static final String ACCESS_FORBIDDEN = "You are not authorized to access this group.";
+        public static final String NOT_MEMBER = "You are not member of this group.";
     }
 
     public static class PROFILE {
